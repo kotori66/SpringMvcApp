@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Люди</title>
+</head>
+<body>
+    <div>
+        <p>
+            <a href="people/new">добавить человека</a>
+        </p>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Email</th>
+            </tr>
+            <tr th:each="el: ${people}" align="center">
+                <td th:text="${el.id}">...</td>
+                <td th:text="${el.name}">...</td>
+                <td th:text="${el.age}">...</td>
+                <td th:text="${el.email}">...</td>
+                <td>
+                    <form th:action="@{/people/{id}/edit(id=${el.getId()})}">
+                        <button>Изменить</button>
+                    </form>
+                </td>
+                <td>
+                    <form th:method="Delete" th:action="@{/people/{id}(id=${el.getId()})}">
+                        <input type="submit" name="delete" value="Удалить"/>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
