@@ -13,7 +13,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
-    //Это означает, что для получения bean-компонента с именем userRepository,
+    //Это означает, что для получения bean-компонента с именем peopleRepository,
     // который автоматически генерируется Spring, мы будем использовать его для обработки данных.
     @Autowired
     private PeopleRepository peopleRepository;
@@ -38,7 +38,7 @@ public class PeopleController {
 
     @PostMapping() //отправка формы
     public String createPeople(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult){
-        if(bindingResult.hasErrors()) return "person-new";
+        if(bindingResult.hasErrors()) return "people/new";
         peopleRepository.save(person);
         return "redirect:/people";
     }
@@ -52,7 +52,7 @@ public class PeopleController {
     @PatchMapping("/{id}")//редактирование людей
     public String personUpdate(@ModelAttribute("person") @Valid Person person,BindingResult bindingResult,
                                @PathVariable("id") Integer id){
-        if(bindingResult.hasErrors()) return "person-edit";
+        if(bindingResult.hasErrors()) return "people/edit";
         Person updatePerson = peopleRepository.findById(id).orElseThrow();
         updatePerson.setName(person.getName());
         updatePerson.setAge(person.getAge());

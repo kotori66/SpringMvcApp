@@ -3,10 +3,7 @@ package com.example.people_db.models;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 
 
 @Entity // This tells Hibernate to make a table out of this class
@@ -20,18 +17,18 @@ import javax.validation.constraints.NotEmpty;
         @Length(message = "имя дожно быть от 2 до 30 символов", min = 2, max = 30)
         @Column(name = "name")
         @NotEmpty(message="имя не должно быть пустным")
-        //@Size(min=2, max=30)
         private String name;
 
+        @NotNull(message = "возраст не должен быть пустым")
         @Max(message = "серьезно?", value = 100)
         @Min(message = "маленький возраст", value = 18)
         @Column(name = "age")
         private Integer age;
 
+
+        @NotBlank(message = "email не должен быть пустым")
         @Email(message = "неправильно введен email")
         @Column(name = "email")
-        //@NotNull
-        //@Email
         private String email;
 
         public Person() {
