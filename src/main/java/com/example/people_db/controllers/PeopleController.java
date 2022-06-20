@@ -43,6 +43,7 @@ public class PeopleController {
         return "redirect:/people";
     }
 
+
     @GetMapping("/{id}/edit")//изменение пользователя
     public String personEdit(Model model, @PathVariable("id") Integer id){
         model.addAttribute("person", peopleRepository.findById(id).orElseThrow());
@@ -65,5 +66,11 @@ public class PeopleController {
     public String personDelete(@PathVariable("id") Integer id){
         peopleRepository.deleteById(id);
         return "redirect:/people";
+    }
+
+    @PostMapping("/search")//поиск по имени
+    public String search(@RequestParam (value = "name", required = false) String name, Model model){
+        model.addAttribute("people", peopleRepository.findByName(name));
+        return "people/home";
     }
 }
